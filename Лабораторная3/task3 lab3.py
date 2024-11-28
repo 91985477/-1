@@ -9,6 +9,7 @@ def to_csv_file(filename: str, headers: list, rows: list, delimiter: str = ',', 
             # Преобразуем каждый элемент строки в строку и объединяем их с помощью разделителя
             row_str = delimiter.join(map(str, row))
             file.write(row_str + new_line)
+            yield row_str  # Возвращаем строку для генератора
 
 # Пример использования
 headers_list = ['Name', 'Age', 'City']
@@ -19,4 +20,8 @@ data = [
 ]
 
 # Записываем данные в файл output.csv
-to_csv_file('output.csv', headers_list, data)
+generator = to_csv_file('output.csv', headers_list, data)
+
+# Проходим по генератору, чтобы записать все данные
+for _ in generator:
+    pass
